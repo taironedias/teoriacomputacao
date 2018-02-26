@@ -1,0 +1,218 @@
+
+%\section*{Seção 5.3:}
+\subsection*{SEÇÃO 5.3}
+\subsection*{Exercício 3: Mostre que a linguagem $\{R\langle M,\omega\rangle$ | existe estado $e$ tal que $M$ passe duas vezes por $e$ ao processar $\omega$ $\}$  é recursiva.}
+
+Supondo que $\lambda$ $\in$ $\omega$ e considerando uma Máquina de Turing Universal que receba como entrada R$\langle \omega,\lambda \rangle$ de $n$ fitas.
+
+\begin{itemize}
+   \item Simular a transição de $M$.
+   \item Verificar se o próximo estado já ocorreu na fita nova.
+   \item Se sim, ir para o estado de aceitação.
+   \item Se não, adicioná-lo na fita e prosseguir a simulação.
+   
+   \begin{enumerate}
+       \item Se $M$ para, o conjunto de estados de $M$ é finito, que é uma propriedade de Linguagem Recursiva. Logo, podemos concluir que L é recursiva.
+       \item Se $M$ não para, nada podemos afirmar sobre o conjunto de estados de $M$. Logo, podemos concluir que L não é recursiva.
+ \end{enumerate}
+   
+ \end{itemize}
+ 
+%------------------------------
+%------------------------------
+
+\subsection*{Exercício 5: Mostre que a linguagem $\{R\langle M \rangle$ | $L(M) \neq 0 \}$ é LRE.}
+
+Seja $L_1 = \{R\langle M \rangle$ | $L(M) \neq 0 \}$. O problema da parada pode ser reduzido a este produzindo-se uma MT $M'$, a partir de $M$ e $\omega$, que:
+
+\begin{itemize}
+    \item $M'$ toma como entrada o código de $M$;
+    \item $M'$ supõe uma entrada $\omega$ que $M$ poderia aceitar;
+    \item $M'$ testa se $M$ aceita $\omega$. Para essa parte, $M'$ pode simular uma MTU $U$ que aceita $L$.
+    \item Se $M$ aceita $\omega$, então $M'$ aceita sua própria entrada que é $M$
+\end{itemize}
+
+Dessa maneira, se $M$ aceita até mesmo uma única string, $M'$ irá supor essa string e aceitará $M$. Porém, se $L(M)=0$, então nenhuma suposição de $\omega$ levará a aceitação por $M$ e assim $M'$ não aceitará $M$. Desse modo, $L(M)=L_1$ é LRE.
+
+
+%------------------------------
+%------------------------------
+%------------------------------
+
+
+\subsection*{SEÇÃO 5.4}
+\subsection*{Exercício 3: Explicite o uso do argumento da diagonalização para mostrar que a MT $D$ do Teorema 38 não pode existir, de forma análoga ao que foi feito em seguida à prova do Teorema 37.}
+
+$D$ é uma MT que para quando a entrada e $P(T,T)$ se, somente se, $D(T)$ não para se $P(T,T)$ retornar $true$. Se for considerando que o conjunto das MTs pode ser enumerado, obtendo-se uma sequência $P(T_0,T_0)$, $P(T_1,T_1)$, $P(T_2,T_2)$, ..., isso quer dizer que:
+
+$D(T)$ para se, somente se, $D(T_i)$ não para se $P(T_i,T_i)$ retornar $true$ para todo $i \geq 0$. Veja então, que $D(T)$ é diferente de $D(T_i)$ para se o retorno de  $P(T_i,T_i)$ for $true$ para todo $i \geq 0$! Logo, a MT $D$ não pode existir.
+
+%------------------------------
+
+%------------------------------
+
+\subsection*{Exercício 4: Seja a linguagem $\{R\langle M,\omega \rangle $ | $M$ não para se a entrada for $\omega \}$. Prove que essa linguagem não é recursivamente enumerável. Observe que essa linguagem é $\overline{L_P}$, excluídas as palavras que não estejam na forma $R\langle M,\omega \rangle $.}
+
+Sabemos que $L_P = \{R\langle M,\omega \rangle $ | $M$ para se a entrada for $\omega \}$. Como $M$ pode parar ou não, isso classifica $L_P$ como LRE, e que pode ser recursiva. Agora, perceba que $L_Q = \overline{L_P}$, ou seja, $L_Q = \{R\langle M,\omega \rangle $ | $M$ não para se a entrada for $\omega \}$. Então, se ambos forem LREs, logo, ambos seriam recursivos. Dessa forma, pelo menos um deles não deve ser LRE. E as LREs não são fechadas sob complementação, concluímos que $L_Q$ não é LRE.
+
+
+%------------------------------
+%------------------------------
+%------------------------------
+
+
+\subsection*{SEÇÃO 5.5}
+\subsection*{Exercício 1: Para cada PD a seguir, mostre que o mesmo é decidível:}
+
+\subsection*{b) Dada uma MT $M$, determine se $M$ escreve algum símbolo diferente do branco, para a entrada $\lambda$.}
+
+Eis como seria uma MT $M'$:
+
+\begin{enumerate}
+    \item Se $M'$ ler $\lambda$; escreva $\lambda$ e vá para a direita;
+    \item Repita 1. até $M'$ ler $a$ ou até a metade do tamanho da palavra de entrada.
+    \item Se $M'$ ler $a$:
+    
+    \begin{enumerate}
+        \item Escreva $a$ e vá para a direita;
+        \item Pare e aceite.
+    \end{enumerate}
+    
+    \item Se $M'$ não ler $a$:
+    
+    \begin{enumerate}
+        \item Escreva $\lambda$ e vá para a direita;
+        \item Pare e não aceite.
+    \end{enumerate}
+\end{enumerate}
+
+\subsection*{c) Dada uma MT $M$, determinar se $M$ vai mover o cabeçote para a esquerda alguma vez, para a entrada $\lambda$.}
+
+Eis como seria uma MT $M$:
+
+\begin{enumerate}
+    \item Marque o início da fita com $\langle$  .
+    \item Leia $\lambda$; escreva $\lambda$ ; vá para a direita.
+    \item Se ler $\langle$  ; escreva $\lambda$  ; vá para a esquerda.
+        \begin{enumerate}
+            \item Se ler $\lambda$  ; escreva $\lambda$  ; vá para a esquerda.
+            \item Repita a) até ler $\langle$  ; escreva $\lambda$  ; vá para a esquerda.
+            \begin{enumerate}
+                \item Se ler $\lambda$  ; escreva $\langle$  ; vá para a direita.
+                \item Pare e aceite.
+            \end{enumerate}
+        \end{enumerate}
+    \item Se não ler $\langle$ , repita a partir do item 2 até a metade do tamanho da palavra de entrada.
+    \item Pare e não aceite.
+\end{enumerate}
+
+%------------------------------
+%------------------------------
+
+%------------------------------
+
+%------------------------------
+
+\subsection*{Exercício 2: Para cada PD a seguir, mostre que o mesmo é indecidível:}
+
+\subsection*{b) Dados uma MT $M$ e um estado $e$ de $M$, determinar se a computação de $M$ para a entrada $\lambda$ atinge o estado $e$.}
+
+O problema da fita em branco pode ser reduzido a este produzindo-se, a partir de uma MT $M$, uma MT $M'$ e um estado $p$ tais que:
+
+\begin{itemize}
+    \item $p$ é um estado diferente de todos os utilizados por $M$.
+    \item $M'$ se comporta como $M$, exceto que, para todo par $(e,s)$ tal que $\delta{(e,s)}$ é indefinido em $M$; em $M'$ tem-se a transição $\delta'{(e,s)} = [p,a,d]$. 
+\end{itemize}
+
+Com isso, $M$ para se iniciada com a fita em branco se, somente se, a computação de $M'$ para a entrada $\lambda$ atinge o estado $p$.
+
+\subsection*{c) Dada uma MT $M$, determinar se a computação de $M$ para a entrada $\lambda$ "volta" ao estado inicial de $M$.}
+
+O problema da fita em branco pode ser reduzido a este produzindo-se, a partir de uma MT $M$, uma MT $M'$ e um estado inicial $k$ tais que:
+
+\begin{itemize}
+    \item $k$ é um estado diferente de todos os utilizados por $M$.
+    \item $M'$ se comporta como $M$, exceto que, para todo par $(e,s)$ tal que $\delta{(e,s)}$ é indefinido em $M$; em $M'$ tem-se a transição $\delta'{(e,s)} = [k,a,d]$. 
+\end{itemize}
+
+Com isso, $M$ para se iniciada com a fita em branco se, somente se, a computação de $M'$ para a entrada $\lambda$ "volta" ao estado inicial de $M$.
+
+\subsection*{d) Dados uma MT $M$ e um símbolo $a$ de $M$, determinar se a computação de $M$ para a entrada $\lambda$ escreve $a$ na fita em algum momento.}
+
+O problema da fita em branco pode ser reduzido a este produzindo-se, a partir de uma MT $M$, uma MT $M'$ e um símbolo $a$ tais que:
+
+\begin{itemize}
+    \item $a$ é um símbolo diferente de todos os utilizados por $M$.
+    \item $M'$ se comporta como $M$, exceto que, para todo par $(e,s)$ tal que $\delta{(e,s)}$ é indefinido em $M$, em $M'$ tem-se a transição $\delta'{(e,s)} = [e,a,d]$. 
+\end{itemize}
+
+Com isso, $M$ para se iniciada com a fita em branco se, somente se, a computação de $M'$ para a entrada $\lambda$ escreve $a$ na fita em algum momento.
+
+%------------------------------
+%------------------------------
+
+%------------------------------
+
+%------------------------------
+
+\subsection*{Exercício 4: Seja o problema: dada uma MT $M$, determinar se $x \in L(M)$, onde $x$ é uma palavra específica. (Observe que \bold{o único parâmetro} desse problema é $M$)}
+
+\subsection*{a) Pode-se usar o Teorema de Rice para mostrar que esse problema é indecidível? Justifique.}
+
+Sim. Pois pelo Teorema de Rice a propriedade $x \in L(M)$ não é trivial, pois $x$ é uma palavra específica, assim, temos que a linguagem $\{R\langle M \rangle ~|~ x \in L(M)\}$ não é recursiva. Logo o problema de determinar se $x \in L(M)$ é indecidível.
+
+\subsection*{b) Reduza o problema da parada a este.}
+
+O problema da parada pode ser reduzido a este produzindo-se uma MT $M'$, a partir de $M$ e $\omega$, que:
+
+\begin{itemize}
+    \item Apaga sua entrada;
+    \item Escreve a palvra $\omega$ na fita;
+    \item Volta o cabeçote para o início de $\omega$;
+    \item Se comportar como $M$.
+\end{itemize}
+
+Supõe-se que $M'$ reconhece por parada. Com isto, qualquer que seja a palavra de entrada $\omega'$ para $M'$, inclusive este $x$ de palavra específica:
+
+$M'$ aceita $\omega'$ se, somente se, $M$ para se sua entrada é $\omega$.
+
+\subsection*{c) A linguagem $L_x=\{R\langle M \rangle ~|~ x \in L(M)\}$ é LRE? Justifique.}
+
+Uma linguagem diz-se ser recursivamente enumerável se é aceita por uma máquina de Turing. Vimos no item b) que se $M$ para sobre $\omega$, então $M'$ também para e aceita. Logo, podemos concluir que $L_x$ é LRE.
+
+
+%------------------------------
+%------------------------------
+%------------------------------
+
+
+\subsection*{SEÇÃO 5.6}
+\subsection*{Exercício 3: Mostre que o seguinte problema é ou não decidível: dadas uma GR $G_R$ e uma GLC $G_L$, determinar se $L(G_R) \bigcap L(G_L)=0$.}
+
+Seja $L_1 = L(G_R) \bigcap L(G_L)=0$. Supondo que $L_1$ seja decidível, usando a seguinte declaração: $L(G)$ e $L(R)$ são equivalentes se $L(G) \bigcap \overline{L(R)} = 0$. No entanto, isso não é verdade porque falta um caso importante. A afirmação é verdadeira se a relação entre as linguagens forem uma relação de subconjunto em vez de equivalência. Isto é, $L(G) \subseteq L(R)$ se $L(G) \bigcap \overline{L(R)} = 0$. Para a equivalência, a outra relação de subconjunto deve ser testada também, o que significa que precisa testar se $L(R) \subseteq L(G)$ bem como $L(G) \subseteq L(R)$. Se testarmos apenas um caso, não podemos afirmar se as linguagens são equivalentes porque uma linguagem ($B$) contendo todos os elementos da outra linguagem ($A$), pode conter mais elementos do que o outro quando $A$ pertence a $B$. Ou seja, $B$ é um conjunto estritamente maior do que $A$ ou $A$ é um subconjunto apropriado de $B$ se $A \subset B$. Por isso, para sabermos se as duas linguagens são equivalentes, precisamos testar ambos os casos: 
+
+$L(G) = L(R)$ se, somente se, $L(G) \subseteq L(R)$ e $L(R) \subseteq L(G)$, o que equivale à $L(G) \bigcap \overline{L(R)} = 0$ e $L(R) \bigcap \overline{L(G)} = 0$. 
+
+Observe que, no segundo caso não podemos testá-la porque as LLCs não são fechados sob o complemento. Assim, concluímos que o problema não é decidível.
+
+%------------------------------
+
+%------------------------------
+
+\subsection*{Exercício 4: Mostre que o seguinte problema não é decidível: dadas duas GLCs $G_1$ e $G_2$, determinar se $L(G_1) \bigcap L(G_2)$ é finito.}
+
+Sejam $L(G_1)=L_A$ e $L(G_2)=L_B$. Então $L_A \bigcap L_B$ é o conjunto de soluções para essa instância do Problema da Correspondência de Post (PCP). A interseção é vazia e finita se, somente se, não existe nenhuma solução. Observe que, tecnicamente, reduzimos o PCP à linguagem de pares de GLC's cuja interseção é não-vazia; isto é, mostramos que o problema "a interseção de duas GLC's é não vazia?" é indecidível. E sabemos que mostrar que o complemento de um problema indecidível é equivalente a mostrar que o próprio problema é indecidível.
+
+%------------------------------
+
+%------------------------------
+
+\subsection*{Exercício 6: Mostre que são indecidíveis os problemas de se determinar, dadas duas GLCs $G_1$ e $G_2$, que:}
+
+\subsection*{a) $L(G_1)=L(G_2)$;}
+
+Sejam $L(G_1)=L_A$ e $L(G_2)=L_B$. Tendo em vista que as GLC's são fechadas sob a união, podemos construir uma GLC $G_1$ para $\overline{L_A} \bigcup \overline{L_B}$. Sabendo que $(\sum \bigcup I)^{*}$ é um conjunto regular, certamente podemos construir para ele uma GLC $G_2$. Agora, $\overline{L_A} \bigcup \overline{L_B}=\overline{L_A \bigcap L_B}$. Desse modo, $L(G_1)$ não tem apenas as strings que representam soluções para a instância do PCP. $L(G_2)$ não tem nenhuma string em $(\sum \bigcup I)^{*}$. Portanto, suas linguagens são iguais se, somente se, a instância do PCP não tem nenhuma solução. Logo, esse problema é indecidível.
+
+\subsection*{b) $L(G_1) \subseteq L(G_2)$.}
+
+Seja $G_1$ uma GLC para $(\sum \bigcup I)^{*}$ e seja $G_2$ uma GLC para $\overline{L_A} \bigcup \overline{L_B}$. Então, $L(G_1) \subseteq L(G_2)$ se, somente se,  $\overline{L_A} \bigcup \overline{L_B}=(\sum \bigcup I)^{*}$, isto é, se somente se, a instância do PCP não tem nenhuma solução. Logo, esse problema é indecidível.
